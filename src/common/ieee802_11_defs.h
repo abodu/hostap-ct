@@ -1296,7 +1296,7 @@ struct ieee80211_ampe_ie {
 
 #define VHT_RX_NSS_MAX_STREAMS			    8
 
-/* VHT/EDMG channel widths */
+/* HE and VHT channel widths */
 #define CHANWIDTH_USE_HT	0
 #define CHANWIDTH_80MHZ		1
 #define CHANWIDTH_160MHZ	2

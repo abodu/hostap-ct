@@ -874,10 +874,10 @@ enum hostapd_hw_mode ieee80211_freq_to_chan(int freq, u8 *channel)
 
 /**
  * ieee80211_freq_to_channel_ext - Convert frequency into channel info
- * for HT40 and VHT. DFS channels are not covered.
+ * for HT40 VHT and HE, DFS channels are not covered.
  * @freq: Frequency (MHz) to convert
  * @sec_channel: 0 = non-HT40, 1 = sec. channel above, -1 = sec. channel below
- * @chanwidth: VHT/EDMG channel width (CHANWIDTH_*)
+ * @chanwidth: VHT/HE channel width (CHANWIDTH_*)
  * @op_class: Buffer for returning operating class
  * @channel: Buffer for returning channel number
  * Returns: hw_mode on success, NUM_HOSTAPD_MODES on failure

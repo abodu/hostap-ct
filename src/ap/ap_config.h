@@ -1041,6 +1041,11 @@ struct hostapd_config {
 	u8 he_oper_centr_freq_seg1_idx;
 #endif /* CONFIG_IEEE80211AX */
 
+        /* HE enable/disable config from CHAN_SWITCH */
+#define CH_SWITCH_HE_ENABLED BIT(0)
+#define CH_SWITCH_HE_DISABLED BIT(1)
+        unsigned int ch_switch_he_config;
+
 	/* VHT enable/disable config from CHAN_SWITCH */
 #define CH_SWITCH_VHT_ENABLED BIT(0)
 #define CH_SWITCH_VHT_DISABLED BIT(1)

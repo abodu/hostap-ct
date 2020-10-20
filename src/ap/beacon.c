@@ -580,6 +580,10 @@ static u8 * hostapd_gen_probe_resp(struct hostapd_data *hapd,
 	}
 #endif /* CONFIG_IEEE80211AX */
 
+	if ((hapd->iconf->ieee80211ac && !hapd->conf->disable_11ac) ||
+	     hapd->iconf->ieee80211ax)
+		pos = hostapd_eid_wb_chsw_wrapper(hapd, pos);
+
 #ifdef CONFIG_IEEE80211AC
 	if (hapd->conf->vendor_vht)
 		pos = hostapd_eid_vendor_vht(hapd, pos);
@@ -1304,6 +1308,10 @@ int ieee802_11_build_ap_params(struct hostapd_data *hapd,
 		tailpos = hostapd_eid_he_6ghz_band_cap(hapd, tailpos);
 	}
 #endif /* CONFIG_IEEE80211AX */
+
+	if ((hapd->iconf->ieee80211ac && !hapd->conf->disable_11ac) ||
+	     hapd->iconf->ieee80211ax)
+		tailpos = hostapd_eid_wb_chsw_wrapper(hapd, tailpos);
 
 #ifdef CONFIG_IEEE80211AC
 	if (hapd->conf->vendor_vht)

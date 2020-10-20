@@ -210,7 +210,7 @@ int hostapd_config_tx_queue(struct hostapd_tx_queue_params queue[],
 enum hostapd_hw_mode ieee80211_freq_to_chan(int freq, u8 *channel);
 int ieee80211_chan_to_freq(const char *country, u8 op_class, u8 chan);
 enum hostapd_hw_mode ieee80211_freq_to_channel_ext(unsigned int freq,
-						   int sec_channel, int vht,
+						   int sec_channel, int chan_width,
 						   u8 *op_class, u8 *channel);
 int ieee80211_chaninfo_to_channel(unsigned int freq, enum chan_width chanwidth,
 				  int sec_channel, u8 *op_class, u8 *channel);
