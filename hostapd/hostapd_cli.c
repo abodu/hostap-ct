@@ -1527,6 +1527,12 @@ static int hostapd_cli_cmd_reload_wpa_psk(struct wpa_ctrl *ctrl, int argc,
 }
 
 
+static int hostapd_cli_cmd_signal_txrate(struct wpa_ctrl *ctrl, int argc,
+					 char *argv[])
+{
+	return hostapd_cli_cmd(ctrl, "SIGNAL_TXRATE", 0, argc, argv);
+}
+
 struct hostapd_cli_cmd {
 	const char *cmd;
 	int (*handler)(struct wpa_ctrl *ctrl, int argc, char *argv[]);
@@ -1710,6 +1716,9 @@ static const struct hostapd_cli_cmd hostapd_cli_commands[] = {
 	  "<addr> = poll a STA to check connectivity with a QoS null frame" },
 	{ "signal_monitor", hostapd_cli_cmd_signal_monitor, NULL,
 	  "= set signal monitor parameters" },
+	{ "signal_txrate", hostapd_cli_cmd_signal_txrate, NULL,
+	  "= set signal tx rate parameters: signal_txrate "
+	  "LOW=<> HIGH=<>" },
 	{ "req_beacon", hostapd_cli_cmd_req_beacon, NULL,
 	  "<addr> [req_mode=] <measurement request hexdump>  = send a Beacon report request to a station" },
 	{ "reload_wpa_psk", hostapd_cli_cmd_reload_wpa_psk, NULL,
