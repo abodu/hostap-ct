@@ -876,6 +876,7 @@ struct he_phy_capabilities_info {
 	bool he_su_beamformer;
 	bool he_su_beamformee;
 	bool he_mu_beamformer;
+	int he_ul_mumimo;
 };
 
 /**
