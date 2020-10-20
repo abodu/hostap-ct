@@ -1736,6 +1736,11 @@ static int setup_interface2(struct hostapd_iface *iface)
 
 			ch_width = op_class_to_ch_width(iface->conf->op_class);
 			hostapd_set_oper_chwidth(iface->conf, ch_width);
+#ifdef CONFIG_IEEE80211AX
+			if (is_6ghz_op_class(iface->conf->op_class) && !iface->conf->secondary_channel &&
+			    center_idx_to_bw_6ghz(iface->conf->he_oper_centr_freq_seg0_idx))
+				iface->conf->secondary_channel = (((iface->conf->channel - 1) / 4 ) % 2) ? -1 : 1 ;
+#endif
 		}
 
 		ret = hostapd_select_hw_mode(iface);

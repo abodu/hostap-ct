@@ -888,6 +888,7 @@ enum hostapd_hw_mode ieee80211_freq_to_channel_ext(unsigned int freq,
 						   u8 *op_class, u8 *channel)
 {
 	u8 vht_opclass;
+	u8 he_6ghz_opclass;
 
 	/* TODO: more operating classes */
 
@@ -935,15 +936,19 @@ enum hostapd_hw_mode ieee80211_freq_to_channel_ext(unsigned int freq,
 	switch (chanwidth) {
 	case CHANWIDTH_80MHZ:
 		vht_opclass = 128;
+		he_6ghz_opclass = 133;
 		break;
 	case CHANWIDTH_160MHZ:
 		vht_opclass = 129;
+		he_6ghz_opclass = 134;
 		break;
 	case CHANWIDTH_80P80MHZ:
 		vht_opclass = 130;
+		he_6ghz_opclass = 135;
 		break;
 	default:
 		vht_opclass = 0;
+		he_6ghz_opclass = 0;
 		break;
 	}
 
@@ -1034,15 +1039,17 @@ enum hostapd_hw_mode ieee80211_freq_to_channel_ext(unsigned int freq,
 	}
 
 	if (freq > 5950 && freq <= 7115) {
-		int bw;
-		u8 idx = (freq - 5950) / 5;
-
-		bw = center_idx_to_bw_6ghz(idx);
-		if (bw < 0)
+		if ((freq - 5950) % 5)
 			return NUM_HOSTAPD_MODES;
 
-		*channel = idx;
-		*op_class = 131 + bw;
+		if (he_6ghz_opclass)
+			*op_class = he_6ghz_opclass;
+		else if (sec_channel == 1 || sec_channel == -1)
+			*op_class = 132;
+		else
+			*op_class = 131;
+
+		*channel = (freq - 5950) / 5;
 		return HOSTAPD_MODE_IEEE80211A;
 	}
 
