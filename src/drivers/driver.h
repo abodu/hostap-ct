@@ -5746,6 +5746,7 @@ union wpa_event_data {
 
 	/**
 	 * struct ch_switch
+	 * @count: Count until channel switch activates
 	 * @freq: Frequency of new channel in MHz
 	 * @ht_enabled: Whether this is an HT channel
 	 * @ch_offset: Secondary channel offset
@@ -5754,6 +5755,7 @@ union wpa_event_data {
 	 * @cf2: Center frequency 2
 	 */
 	struct ch_switch {
+		int count;
 		int freq;
 		int ht_enabled;
 		int ch_offset;
