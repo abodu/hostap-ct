@@ -144,7 +144,7 @@ static int hostapd_stop(struct wpa_supplicant *wpa_s)
 
 static int hostapd_reload(struct wpa_supplicant *wpa_s, struct wpa_bss *bss)
 {
-	char *cmd = NULL;
+	char cmd[128];
 	char buf[256];
 	size_t len = sizeof(buf);
 	enum hostapd_hw_mode hw_mode;
@@ -164,12 +164,11 @@ static int hostapd_reload(struct wpa_supplicant *wpa_s, struct wpa_bss *bss)
 	}
 
 	hw_mode = ieee80211_freq_to_chan(bss->freq, &channel);
-	if (asprintf(&cmd, "UPDATE channel=%d sec_chan=%d hw_mode=%d",
+	if (snprintf(cmd, sizeof(cmd), "UPDATE channel=%d sec_chan=%d hw_mode=%d",
 		     channel, sec_chan, hw_mode) < 0)
 		return -1;
 
 	ret = wpa_ctrl_request(wpa_s->hostapd, cmd, os_strlen(cmd), buf, &len, NULL);
-	free(cmd);
 
 	if (ret < 0) {
 		wpa_printf(MSG_ERROR, "\nFailed to reload hostapd AP interfaces\n");

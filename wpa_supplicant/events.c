@@ -4726,8 +4726,8 @@ supplicant_ch_switch_started(struct wpa_supplicant *wpa_s,
 			    union wpa_event_data *data)
 {
 	char buf[256];
+	char cmd[256];
 	size_t len = sizeof(buf);
-	char *cmd = NULL;
 	int width = 20;
 	int ret;
 
@@ -4777,7 +4777,7 @@ supplicant_ch_switch_started(struct wpa_supplicant *wpa_s,
 		break;
 	}
 
-	asprintf(&cmd, "CHAN_SWITCH %d %d sec_channel_offset=%d center_freq1=%d center_freq2=%d, bandwidth=%d auto-ht\n",
+	snprintf(cmd, sizeof(cmd), "CHAN_SWITCH %d %d sec_channel_offset=%d center_freq1=%d center_freq2=%d, bandwidth=%d auto-ht\n",
 		data->ch_switch.count - 1,
 		data->ch_switch.freq,
 		data->ch_switch.ch_offset,
@@ -4785,7 +4785,6 @@ supplicant_ch_switch_started(struct wpa_supplicant *wpa_s,
 		data->ch_switch.cf2,
 		width);
 	ret = wpa_ctrl_request(wpa_s->hostapd, cmd, os_strlen(cmd), buf, &len, NULL);
-	free(cmd);
 
 	if (ret < 0)
 		wpa_printf(MSG_ERROR, "\nFailed to reload hostapd AP interfaces\n");
