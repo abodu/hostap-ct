@@ -861,6 +861,7 @@ struct hostapd_bss_config {
 	 */
 	u8 mka_psk_set;
 #endif /* CONFIG_MACSEC */
+	char *config_id;
 };
 
 /**
@@ -1053,6 +1054,7 @@ struct hostapd_config {
 	unsigned int airtime_update_interval;
 #define AIRTIME_MODE_MAX (__AIRTIME_MODE_MAX - 1)
 #endif /* CONFIG_AIRTIME_POLICY */
+	char *config_id;
 };
 
 
